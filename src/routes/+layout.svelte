@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { mdiWeatherNight, mdiWeatherSunny, mdiMenu } from '@mdi/js';
+	import { mdiWeatherNight, mdiWeatherSunny, mdiAccountCircle } from '@mdi/js';
 	import TopAppBar, { Row, Section, Title, AutoAdjust } from '@smui/top-app-bar';
 	import IconButton, { Icon } from '@smui/icon-button';
 	import { Svg } from '@smui/common';
@@ -9,7 +9,9 @@
 	import List, { Item, Text } from '@smui/list';
 
 	let open: boolean = false;
-	let active = 'Gray Kittens';
+	let active: string;
+	let username: string = 'Ted Fulk';
+	let motto: string = 'Be Penomenal or Be Forgotten';
 
 	let topAppBar: TopAppBar;
 	let darkTheme: boolean | undefined = undefined;
@@ -40,13 +42,16 @@
 	<Row>
 		<Section>
 			<IconButton on:click={() => (open = !open)}>
-				<Icon component={Svg} viewBox="0 0 24 24">
-					<path fill="currentColor" d={mdiMenu} />
+				<Icon component={Svg} viewBox="0 0 22 22">
+					<path fill="currentColor" d={mdiAccountCircle} />
 				</Icon>
 			</IconButton>
-			<Title>Gym Dot</Title>
+			<Button href="/">
+				<Title>Gym Dot</Title>
+			</Button>
 		</Section>
 		<Section align="end" toolbar>
+			<Button href="myschedule"><Label>My Schedule</Label></Button>
 			<IconButton
 				on:click={() => {
 					darkTheme = !darkTheme;
@@ -61,41 +66,41 @@
 	</Row>
 </TopAppBar>
 <AutoAdjust {topAppBar}>
-	<div class="drawer-container">
+	<div class="drawer-container" style="margin-left: 1rem;">
 		<Drawer variant="dismissible" bind:open>
 			<Header>
-				<Title>Super Drawer</Title>
-				<Subtitle>It's the best drawer.</Subtitle>
+				<Title>{username}</Title>
+				<Subtitle>{motto}</Subtitle>
 			</Header>
 			<Content>
 				<List>
 					<Item
-						href="javascript:void(0)"
-						on:click={() => setActive('Gray Kittens')}
-						activated={active === 'Gray Kittens'}
+						href="profile"
+						on:click={() => setActive('profile')}
+						activated={active === 'profile'}
 					>
-						<Text>Gray Kittens</Text>
+						<Text>Profile</Text>
 					</Item>
 					<Item
-						href="javascript:void(0)"
-						on:click={() => setActive('A Space Rocket')}
-						activated={active === 'A Space Rocket'}
+						href="accountinfo"
+						on:click={() => setActive('account info')}
+						activated={active === 'account info'}
 					>
-						<Text>A Space Rocket</Text>
+						<Text>Account Info</Text>
 					</Item>
 					<Item
-						href="javascript:void(0)"
-						on:click={() => setActive('100 Pounds of Gravel')}
-						activated={active === '100 Pounds of Gravel'}
+						href="prboard"
+						on:click={() => setActive('pr board')}
+						activated={active === 'pr board'}
 					>
-						<Text>100 Pounds of Gravel</Text>
+						<Text>PR Board</Text>
 					</Item>
 					<Item
-						href="javascript:void(0)"
-						on:click={() => setActive('All of the Shrimp')}
-						activated={active === 'All of the Shrimp'}
+						href="attendance"
+						on:click={() => setActive('attendance')}
+						activated={active === 'attendance'}
 					>
-						<Text>All of the Shrimp</Text>
+						<Text>Attendance</Text>
 					</Item>
 					<Item
 						href="javascript:void(0)"
@@ -110,8 +115,11 @@
 
 		<AppContent class="app-content">
 			<main class="main-content">
-				<slot class="status">Active: {active}</slot>
+				<slot />
 			</main>
 		</AppContent>
 	</div>
 </AutoAdjust>
+
+<style>
+</style>
